@@ -1,0 +1,115 @@
+<!--pages/profile/profile.wxml-->
+<view class="page">
+  <!-- 用户卡片：游客点头像/名字触发注册 -->
+  <view class="card user-card {{!user.registered ? 'tapable' : ''}}" bindtap="onTapUser">
+    <view class="row">
+      <view class="avatar {{user.gender === 'female' ? 'avatar-female' : user.gender === 'male' ? 'avatar-male' : ''}}">{{user.avatarChar}}</view>
+      <view class="flex-1 user-info">
+        <view class="row">
+          <text class="strong username">{{user.nickName}}</text>
+          <text wx:if="{{user.registered}}" class="tag tag-green">已注册</text>
+          <text wx:else class="tag tag-orange">游客</text>
+        </view>
+        <view class="small muted">{{user.sub}}</view>
+      </view>
+      <text wx:if="{{!user.registered}}" class="muted small">›</text>
+    </view>
+  </view>
+
+  <!-- 性别（可自报；已被系统核实锁定时不可改） -->
+  <view class="card gender-card">
+    <view wx:if="{{!user.genderLocked}}" class="row-between">
+      <text class="small muted">性别（请如实填写）</text>
+      <view class="chips">
+        <view wx:for="{{genders}}" wx:key="id" class="chip chip-sm {{user.gender === item.id ? 'active' : ''}}"
+          data-id="{{item.id}}" bindtap="onPickGender">{{item.label}}</view>
+      </view>
+    </view>
+    <view wx:else class="row-between">
+      <text class="small muted">性别（已核实，不可改）</text>
+      <text class="tag tag-gray">{{user.gender === 'female' ? '女' : user.gender === 'male' ? '男' : '未填'}}</text>
+    </view>
+  </view>
+
+  <!-- 信用分 -->
+  <view class="card credit-card">
+    <view class="row-between">
+      <view>
+        <view class="small muted">信用分</view>
+        <view class="credit-num {{credit < 60 ? 'danger' : 'primary'}}">{{credit}}</view>
+      </view>
+      <view class="small muted credit-tip">爽约扣分 · 同行加分<br />低于 60 暂停发局</view>
+    </view>
+    <view class="credit-bar"><view class="credit-bar-fill" style="width: {{credit}}%"></view></view>
+  </view>
+
+  <!-- 校内身份（自报登记；同车人只见绿标，明文仅自己/管理员） -->
+  <view class="card identity-card" bindtap="onIdentity">
+    <view class="row-between">
+      <text class="small muted">校内身份</text>
+      <block wx:if="{{user.registered && user.schoolId}}">
+        <view class="row">
+          <text class="tag tag-green">✓ 校内已登记</text>
+          <text class="small primary identity-edit">查看 ›</text>
+        </view>
+      </block>
+      <text wx:elif="{{user.registered}}" class="small primary">去登记 ›</text>
+      <text wx:else class="small muted">注册后可登记</text>
+    </view>
+    <view wx:if="{{user.registered && user.schoolId}}" class="small muted identity-sub">
+      {{user.schoolId.name}} · 学号 {{user.schoolId.studentId}}
+    </view>
+    <view class="small muted identity-note">对同车人只显示「✓ 校内已登记」；防逃跑有据可查，不展示微信号</view>
+  </view>
+
+  <!-- 菜单 -->
+  <view class="card menu-card">
+    <view wx:for="{{menu}}" wx:key="id" class="list-row" data-id="{{item.id}}" bindtap="onTapMenu">
+      <text class="menu-icon">{{item.icon}}</text>
+      <text class="flex-1">{{item.label}}</text>
+      <text class="muted small">›</text>
+    </view>
+  </view>
+
+  <!-- 管理员入口：仅 openid 命中 ADMIN_OPENIDS 时显示 -->
+  <view wx:if="{{isAdmin}}" class="card menu-card admin-card">
+    <view class="list-row" bindtap="onAdmin">
+      <text class="menu-icon">🛠️</text>
+      <text class="flex-1">管理员后台（代发种子局 / 上报复核）</text>
+      <text class="muted small">›</text>
+    </view>
+  </view>
+
+  <!-- 注册浮层 -->
+  <view wx:if="{{showReg}}" class="reg-mask" bindtap="onCloseReg"></view>
+  <view wx:if="{{showReg}}" class="reg-panel">
+    <view class="strong reg-title">完善资料，参与拼车</view>
+    <view class="small muted">填个昵称（每人不一样）即可发起/加入拼车局。</view>
+    <input class="reg-input" placeholder="昵称（可改）" value="{{registerNick}}" bindinput="onNickInput" maxlength="12" />
+    <view class="chips reg-genders">
+      <view wx:for="{{genders}}" wx:key="id" class="chip {{user.gender === item.id ? 'active' : ''}}"
+        data-id="{{item.id}}" bindtap="onPickGender">{{item.label}}</view>
+    </view>
+    <view class="row reg-actions">
+      <button class="btn btn-ghost act-half" bindtap="onCloseReg">取消</button>
+      <button class="btn btn-primary act-half" bindtap="onRegisterSubmit">完成注册</button>
+    </view>
+  </view>
+
+  <!-- 规则半屏面板（信用分表格 / 隐私与实名分节，云端单一来源） -->
+  <rules-panel id="rulesPanel" />
+
+  <!-- 关于本工具（半屏面板：简介 / 版本 / 近期更新） -->
+  <view wx:if="{{showAbout}}" class="sheet-mask" bindtap="closeAbout"></view>
+  <view wx:if="{{showAbout}}" class="sheet-panel ab-panel">
+    <view class="sheet-head">
+      <text class="ab-title">深港拼车</text>
+      <text class="sheet-close" bindtap="closeAbout">✕</text>
+    </view>
+    <view class="ab-desc">为深港跨境通勤者（当前：往返香港教育大学的师生）提供拼车局撮合。只组队、不约车、不经手车费，AA 线下进行。</view>
+    <view class="ab-ver">{{aboutVer}}</view>
+    <view class="ab-section">近期更新</view>
+    <view wx:for="{{aboutChangelog}}" wx:key="*this" class="ab-item">{{item}}</view>
+    <view class="sheet-agree" bindtap="closeAbout">知道了</view>
+  </view>
+</view>

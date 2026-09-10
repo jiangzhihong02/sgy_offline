@@ -1,0 +1,162 @@
+/* pages/profile/profile.wxss */
+.user-card {
+  margin-top: 24rpx;
+}
+.user-card.tapable:active {
+  background: #f7f8fa;
+}
+.reg-title {
+  font-size: 30rpx;
+}
+.reg-input {
+  background: #f6f7f9;
+  border-radius: 10rpx;
+  padding: 14rpx 18rpx;
+  font-size: 27rpx;
+  margin-top: 16rpx;
+}
+.reg-genders {
+  margin-top: 16rpx;
+}
+.reg-actions {
+  margin-top: 24rpx;
+}
+.reg-actions .act-half {
+  margin-right: 16rpx;
+  padding: 16rpx 0;
+}
+.reg-actions .act-half:last-child {
+  margin-right: 0;
+}
+.reg-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 90;
+}
+.reg-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 32rpx 32rpx 48rpx;
+  z-index: 100;
+}
+.reg-panel .reg-title {
+  margin-bottom: 6rpx;
+}
+.gender-card {
+  margin-top: 20rpx;
+  padding: 16rpx 24rpx;
+}
+.chip-sm {
+  padding: 6rpx 20rpx;
+  margin: 0 0 0 12rpx;
+  font-size: 24rpx;
+}
+.user-info {
+  margin-left: 20rpx;
+}
+.username {
+  margin-right: 12rpx;
+}
+.login-btn {
+  padding: 8rpx 28rpx;
+  font-size: 26rpx;
+  border-radius: 999rpx;
+  flex-shrink: 0;
+}
+.credit-card {
+  margin-top: 20rpx;
+}
+.credit-num {
+  font-size: 72rpx;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 4rpx;
+}
+.credit-tip {
+  text-align: right;
+  line-height: 1.6;
+}
+.credit-bar {
+  height: 12rpx;
+  background: #f0f1f3;
+  border-radius: 999rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+}
+.credit-bar-fill {
+  height: 100%;
+  background: #07c160;
+  border-radius: 999rpx;
+  transition: width 0.3s;
+}
+.identity-card {
+  margin-top: 20rpx;
+  padding: 20rpx 24rpx;
+}
+.identity-sub {
+  margin-top: 8rpx;
+}
+.identity-note {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+}
+.identity-edit {
+  margin-left: 12rpx;
+}
+.menu-card {
+  margin-top: 20rpx;
+}
+.menu-icon {
+  width: 60rpx;
+  margin-right: 12rpx;
+}
+.admin-entry {
+  text-align: center;
+  padding: 20rpx 0 40rpx;
+}
+
+/* ---- 关于本工具（半屏面板；遮罩/面板/头部/关闭/确定 用 app.wxss sheet-* 共用） ---- */
+.ab-panel {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.ab-title {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+.ab-desc {
+  font-size: 25rpx;
+  color: #4e545c;
+  line-height: 1.7;
+}
+.ab-ver {
+  display: inline-block;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #07a55a;
+  background: #e8f9ef;
+  border-radius: 999rpx;
+  padding: 4rpx 18rpx;
+}
+.ab-section {
+  margin: 24rpx 0 8rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2329;
+}
+.ab-item {
+  font-size: 25rpx;
+  color: #4e545c;
+  line-height: 1.6;
+  padding: 10rpx 0 10rpx 24rpx;
+  border-left: 4rpx solid #e8f9ef;
+  margin-bottom: 6rpx;
+}
