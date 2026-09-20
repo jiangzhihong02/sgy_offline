@@ -5,10 +5,10 @@
   > 用途：自己玩，**不参与提审**（带聊天室提审会原样撞回「社交-笔记」，见主仓库 ADR-0017）。
   > **别与主项目互拷文件** —— 两份 db.js 的管理员 openid 必须不同（openid 按 appid 生成）。
 
-  ## 固定配置（副本专属）
-  - appid：wx63a58f0163082859
-  - 云环境：cloud1-d0giflnre1f5a6f54（写在 miniprogram/app.js 的 env）
-  - 管理员 openid：osIpe7HUcD4FWqwhknrTCtw2elEI（cloudfunctions/rides/db.js 的 ADMIN_OPENIDS）
+  ## 固定配置（副本专属 · 部署前把下面三项换成你自己的）
+  - appid：填你的（project.config.json）
+  - 云环境：填你的（miniprogram/app.js 的 env）
+  - 管理员 openid：填你的（cloudfunctions/rides/db.js 的 ADMIN_OPENIDS）
   - 增强编译：**关**（project.config.json 的 "enhance": false）
 
   ## 两个坑（都踩过，别再踩）
@@ -18,7 +18,7 @@
   2. **换 appid ⇒ openid 会变**。同一个人在新 appid 下是另一个 openid；ADMIN_OPENIDS 不换，「我的」页就没有管理员入口。
 
   ## 首次跑起来（四步）
-  1. 右键 cloudfunctions → 选择云环境 → cloud1-d0giflnre1f5a6f54
+  1. 右键 cloudfunctions → 选择云环境 → <你的云环境 ID>
   2. 依次上传并部署 rides / routeInit / rideSweep —— 三个都要勾「云端安装依赖」
   3. 控制台 → 云函数 → routeInit → 云端测试 → 参数 {} → 运行（建 8 个集合 + 写 7 条线路）
   4. 打开小程序 → 注册 → 即可发局 / 加入 / 进聊天室

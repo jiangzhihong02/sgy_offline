@@ -2,7 +2,8 @@
 App({
   onLaunch() {
     this.globalData = {
-      env: "cloud1-d0giflnre1f5a6f54",
+      // 换成你自己的云开发环境 ID（云开发控制台首页可复制）。原值已随本次清理移除。
+      env: "YOUR-CLOUD-ENV-ID",
     };
     if (!wx.cloud) {
       console.error("请使用 2.2.3 或以上的基础库以使用云能力");
